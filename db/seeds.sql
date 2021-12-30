@@ -1,17 +1,17 @@
 INSERT INTO department (name)
 VALUES
-    ('Marketing')
-    ('Engineering')
+    ('Marketing'),
+    ('Engineering'),
     ('Creative');
 
 INSERT INTO roles (title, salary, department_id)
 VALUES
-    ('Sales', 40,000, 1)
-    ('Promoter', 20,000, 1)
-    ('Project Lead', 120,000, 2)
-    ('Engineer', 60,000, 2)
-    ('Designer', 70,000, 3)
-    ('Assistant', 30,000, 3);
+    ('Sales', 40.000, 1),
+    ('Promoter', 20.000, 1),
+    ('Project Lead', 120.000, 2),
+    ('Engineer', 60.000, 2),
+    ('Designer', 70.000, 3),
+    ('Assistant', 30.000, 3);
 
 INSERT INTO employee (first_name, last_name, roles_id, manager_id)
 VALUES
