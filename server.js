@@ -4,6 +4,9 @@ const express = require('express');
 const db = require('./db/connection');
 const apiRoutes = require('./routes/apiRoutes');
 
+const departments = require('./routes/apiRoutes/departmentRoutes')
+
+
 const PORT = process.env.PORT || 4002;
 const app = express();
 
@@ -20,6 +23,11 @@ const start = () => {
             choices: ['View all Departments', 'View all Roles', 'View all Employees', 'Add Department', 'Add Role', 'Add Employee', 'Updated Employee Role']
         }
     ])
+    .then(answer => {
+        if (answer = 'View all Departments') {
+            departments.getAllDepartments
+        }
+    })
 }
 
 start();
