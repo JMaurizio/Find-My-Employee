@@ -4,7 +4,9 @@ const express = require('express');
 const db = require('./db/connection');
 const apiRoutes = require('./routes/apiRoutes');
 
-const departments = require('./routes/apiRoutes/departmentRoutes')
+const departments = require('./routes/apiRoutes/departmentRoutes');
+const roles = require('./routes/apiRoutes/rolesRoutes');
+const employees = require('./routes/apiRoutes/employeeRoutes');
 
 
 const PORT = process.env.PORT || 4002;
@@ -24,13 +26,20 @@ const start = () => {
         }
     ])
     .then(answer => {
-        if (answer = 'View all Departments') {
+        if (answer == 'View all Departments') {
             departments.getAllDepartments
+        }
+        if (answer == 'View all Roles') {
+            roles.getAllRoles
+        }
+        if (answer == 'View all Employees') {
+            employees.getAllEmployees
+        }
+        if (answer == 'Add Department') {
+            departments.addDepartment
         }
     })
 }
-
-start();
 
 app.use((req, res) => {
     res.status(404).end();
@@ -39,3 +48,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
+
+start()
