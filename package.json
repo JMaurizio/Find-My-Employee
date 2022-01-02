@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "repository": {
@@ -20,8 +19,11 @@
   "homepage": "https://github.com/JMaurizio/Find-My-Employee#readme",
   "dependencies": {
     "console.table": "^0.10.0",
-    "express": "^4.17.2",
+    "dotenv": "^10.0.0",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

@@ -1,52 +1,41 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const express = require('express');
-const db = require('./db/connection');
-const apiRoutes = require('./routes/apiRoutes');
+const choiceHandler = require('./db/db');
 
-const departments = require('./routes/apiRoutes/departmentRoutes');
-const roles = require('./routes/apiRoutes/rolesRoutes');
-const employees = require('./routes/apiRoutes/employeeRoutes');
+async function start() {
+    try {
+        const handler = new choiceHandler()
+        let exit = false
 
-
-const PORT = process.env.PORT || 4002;
-const app = express();
-
-app.use(express.urlencoded({ extended: true}));
-app.use(express.json());
-app.use('/api', apiRoutes);
-
-const start = () => {
-    return inquirer.prompt([
-        {
-            type: 'list',
-            name: 'start',
-            message: 'What would you like to do?',
-            choices: ['View all Departments', 'View all Roles', 'View all Employees', 'Add Department', 'Add Role', 'Add Employee', 'Updated Employee Role']
+        while (exit !== true) {
+            const startPrompt = await inquirer.prompt({
+                type: 'list',
+                name: 'start',
+                message: 'What would you like to do?',
+                choices: [
+                    'View All Departments',
+                    'View All Roles',
+                    'View All Employees',
+                    'Add Department',
+                    'Add Role',
+                    'Add Employee',
+                    'Update Employee Role',
+                    'Quit']
+            })
+            
+            switch(startPrompt.start) {
+                case 'View All Departments':
+                    console.table(await handler.allDepartments())
+                    break;
+                case 'Quit':
+                    process.exit(0)
+                default:
+                    break;        
+            }
         }
-    ])
-    .then(answer => {
-        if (answer == 'View all Departments') {
-            departments.getAllDepartments
-        }
-        if (answer == 'View all Roles') {
-            roles.getAllRoles
-        }
-        if (answer == 'View all Employees') {
-            employees.getAllEmployees
-        }
-        if (answer == 'Add Department') {
-            departments.addDepartment
-        }
-    })
+    } catch (error) {
+        if (error) console.log(error)
+    }
 }
-
-app.use((req, res) => {
-    res.status(404).end();
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-})
 
 start()
