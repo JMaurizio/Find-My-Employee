@@ -1,23 +1,11 @@
-const dbConfig = require('../db/dbConfig');
-const mysql = require('mysql2/promise');
-
 class choiceHandler {
-    async connection() {
-        const db = await mysql.createConnection({
-            host: dbConfig.host,
-            user: dbConfig.user,
-            password: dbConfig.password,
-            database: dbConfig.database
-        });
-        console.log('Connected to company database.')
-        return db
+    constructor(db) {
+        this.db = db
     }
 
     async allDepartments() {
-        const db =await this.connection()
-        const sql = `SELECT * FROM departments`;
-        const [rows] = await db.execute(sql)
-        db.destroy()
+        const sql = `SELECT * FROM department`;
+        const [rows] = await this.db.execute(sql)
         return rows
     }
 }

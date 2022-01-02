@@ -1,10 +1,19 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const choiceHandler = require('./db/db');
+const mysql = require('mysql2/promise');
+const dbConfig = require('./db/dbConfig');
 
 async function start() {
     try {
-        const handler = new choiceHandler()
+        const connection = await mysql.createConnection({
+            host: dbConfig.host,
+            user: dbConfig.user,
+            password: dbConfig.password,
+            database: dbConfig.database
+        });
+
+        const handler = new choiceHandler(connection)
         let exit = false
 
         while (exit !== true) {
