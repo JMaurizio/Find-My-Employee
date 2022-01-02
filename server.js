@@ -36,6 +36,50 @@ async function start() {
                 case 'View All Departments':
                     console.table(await handler.allDepartments())
                     break;
+                case 'View All Roles':
+                    console.table()
+                    break;
+                case 'View All Employees':
+                    console.table()
+                    break;
+                case 'Add Department':
+                      const newDepartment = await inquirer.prompt({
+                          type: 'input',
+                          message: 'What is the new departments name?',
+                          name: 'name',
+                          validate: (answer) => answer !== ""
+                       })
+                       console.table()
+                       break;
+                case 'Add Role':
+                    const newRole = await inquirer.prompt([
+                        {
+                            type: 'input',
+                            message: 'What is the new roles title',
+                            name: 'name',
+                            validate: (answer) => answer !== ""
+                        },
+                        {
+                            type: 'number',
+                            message: 'How much does the position earn',
+                            value: 'number',
+                            validate: (answer) => answer !== ""
+                        },
+                        {
+                            type: 'number',
+                            message: 'What department does the role belong to?',
+                            value: 'number',
+                            validate: (answer) => answer !== ""
+                        }
+                    ])
+                    console.table()
+                    break;
+                case 'Add Employee':
+                    const newEmployee = await inquirer.prompt([
+                        {
+                            
+                        }
+                    ])
                 case 'Quit':
                     process.exit(0)
                 default:
