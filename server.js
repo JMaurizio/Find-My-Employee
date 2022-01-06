@@ -72,6 +72,7 @@ async function start() {
                             validate: (answer) => answer !== ""
                         }
                     ])
+                    console.log(newRole)
                     console.table(await handler.addRole(newRole.name, newRole.salary, newRole.department))
                     break;
                 case 'Add Employee':
@@ -97,12 +98,17 @@ async function start() {
                         {
                             type: 'number',
                             message: 'Who is the employees manager?',
-                            name: 'manager',
-                            validate: (answer) => answer !== ""
+                            name: 'manager'
                         }
                     ])
                     console.table(await handler.addEmployee(newEmployee.first_name, newEmployee.last_name, newEmployee.role, newEmployee.manager))
                     break;
+                case 'Update Employee Role':
+                    const updateRole = await inquirer.prompt([
+                        {
+                            
+                        }
+                    ])     
                 case 'Quit':
                     connection.destroy()
                     process.exit(0)

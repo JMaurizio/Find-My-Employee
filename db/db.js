@@ -18,7 +18,7 @@ class choiceHandler {
     async allEmployees() {
         const sql =`
             SELECT e.id, e.first_name, roles.title AS title, department.name AS department, roles.salary AS salary, CONCAT(m.first_name, ' ', m.last_name) AS manager FROM employee e
-			LEFT JOIN roles ON e.role_id = roles.id
+			LEFT JOIN roles ON e.roles_id = roles.id
 			LEFT JOIN department ON roles.department_id = department.id
 			LEFT JOIN employee m ON m.id = e.manager_id
         `;
@@ -33,7 +33,7 @@ class choiceHandler {
     }
 
     async addRole(roles) {
-        const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
+        const sql = `INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`;
         const[result] = await this.db.execute(sql, [roles])
         return this.allRoles()
     } 
@@ -41,6 +41,12 @@ class choiceHandler {
     async addEmployee(employee) {
         const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`;
         const[result] = await this.db.execute(sql, [employee])
+        return this.allEmployees()
+    }
+
+    async updateEmployee(employee) {
+        const sql = `UPDATE employee SET roles_id = ? WHERE employee_id = ?`;
+        const[result] = await this.db.execute(sql)
         return this.allEmployees()
     }
 }
