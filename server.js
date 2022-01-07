@@ -72,7 +72,6 @@ async function start() {
                             validate: (answer) => answer !== ""
                         }
                     ])
-                    console.log(newRole)
                     console.table(await handler.addRole(newRole.name, newRole.salary, newRole.department))
                     break;
                 case 'Add Employee':
@@ -104,11 +103,24 @@ async function start() {
                     console.table(await handler.addEmployee(newEmployee.first_name, newEmployee.last_name, newEmployee.role, newEmployee.manager))
                     break;
                 case 'Update Employee Role':
+                    console.table(await handler.allEmployees())
+                    const updateEmployee = await inquirer.prompt([
+                        {
+                           type: 'input',
+                           message: 'Please enter the id of the employee you would like to update?',
+                           name: 'employee' 
+                        }
+                    ])
+                    console.table(await handler.allRoles())
                     const updateRole = await inquirer.prompt([
                         {
-                            
+                            type: 'input',
+                            message: 'Please enter the role you would like to give them?',
+                            name: 'role'
                         }
-                    ])     
+                    ])
+                    console.table(await handler.updateEmployee(updateRole.role, updateEmployee.employee))
+                    break;     
                 case 'Quit':
                     connection.destroy()
                     process.exit(0)
