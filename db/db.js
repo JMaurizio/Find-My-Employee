@@ -32,9 +32,9 @@ class choiceHandler {
         return this.allDepartments()
     }
 
-    async addRole(roles) {
+    async addRole(title, salary, department_id) {
         const sql = `INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)`;
-        const[result] = await this.db.execute(sql, [roles])
+        const[result] = await this.db.execute(sql, [title, salary, department_id])
         return this.allRoles()
     } 
 
