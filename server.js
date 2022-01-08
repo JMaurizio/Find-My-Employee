@@ -28,6 +28,11 @@ async function start() {
                     'Add Department',
                     'Add Role',
                     'Add Employee',
+                    'Delete Department',
+                    'Delete Role',
+                    'Delete Employee',
+                    'Display Employees by Manager',
+                    'Display Employees by Department',
                     'Update Employee Role',
                     'Quit']
             })
@@ -36,12 +41,15 @@ async function start() {
                 case 'View All Departments':
                     console.table(await handler.allDepartments())
                     break;
+
                 case 'View All Roles':
                     console.table(await handler.allRoles())
                     break;
+
                 case 'View All Employees':
                     console.table(await handler.allEmployees())
                     break;
+
                 case 'Add Department':
                       const newDepartment = await inquirer.prompt({
                           type: 'input',
@@ -51,6 +59,7 @@ async function start() {
                        })
                        console.table(await handler.addDepatartment(newDepartment.name))
                        break;
+
                 case 'Add Role':
                     const newRole = await inquirer.prompt([
                         {
@@ -74,6 +83,7 @@ async function start() {
                     ])
                     console.table(await handler.addRole(newRole.name, newRole.salary, newRole.department))
                     break;
+
                 case 'Add Employee':
                     const newEmployee = await inquirer.prompt([
                         {
@@ -102,6 +112,51 @@ async function start() {
                     ])
                     console.table(await handler.addEmployee(newEmployee.first_name, newEmployee.last_name, newEmployee.role, newEmployee.manager))
                     break;
+
+                case 'Delete Department':
+                    console.table(await handler.allDepartments())
+                    const deleteD = await inquirer.prompt([
+                        {
+                            type: 'input',
+                            message: 'What department would you like to remove?',
+                            name: 'delete'
+                        }
+                    ])
+                    console.table(await handler.deleteDepartment(deleteD.delete))
+                    break;
+                    
+                case 'Delete Role':
+                    console.table(await handler.allRoles())
+                    const deleteR = await inquirer.prompt([
+                        {
+                            type: 'input',
+                            message: 'What role would you like to remove?',
+                            name: 'delete'
+                        }
+                    ])
+                    console.table(await handler.deleteRole(deleteR.delete))
+                    break;
+                    
+                case 'Delete Employee':
+                    console.table(await handler.allEmployees())
+                    const deleteE = await inquirer.prompt([
+                        {
+                            type: 'input',
+                            message: 'What employee would you like to remove?',
+                            name: 'delete'
+                        }
+                    ])
+                    console.table(await handler.deleteEmployee(deleteE.delete))
+                    break; 
+                 
+                case 'Display Employees by Manager':
+                    console.table(await handler.displayByManager())
+                    break;
+
+                case 'Display Employees by Department':
+                    console.table(await handler.displayByDepartment())
+                    break;    
+
                 case 'Update Employee Role':
                     console.table(await handler.allEmployees())
                     const updateEmployee = await inquirer.prompt([
