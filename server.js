@@ -34,6 +34,7 @@ async function start() {
                     'Display Employees by Manager',
                     'Display Employees by Department',
                     'Update Employee Role',
+                    'Update Employee Manager',
                     'Quit']
             })
             
@@ -175,7 +176,25 @@ async function start() {
                         }
                     ])
                     console.table(await handler.updateEmployee(updateRole.role, updateEmployee.employee))
-                    break;     
+                    break;
+                    
+                case 'Update Employee Manager':
+                    console.table(await handler.allEmployees())
+                    const updateManager = await inquirer.prompt([
+                        {
+                            type: 'input',
+                            message: 'What is the id of the employee you would like to assign a new manager?',
+                            name: 'employee'
+                        },
+                        {
+                            type: 'input',
+                            message: 'What is the id of the new manager?',
+                            name: 'manager'
+                        }
+                    ])
+                    console.table(await handler.updateManager(updateManager.manager, updateManager.employee))
+                    break;
+
                 case 'Quit':
                     connection.destroy()
                     process.exit(0)
