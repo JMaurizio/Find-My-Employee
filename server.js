@@ -86,6 +86,8 @@ async function start() {
                     break;
 
                 case 'Add Employee':
+                    console.table(await handler.allRoles())
+                    console.table(await handler.allEmployees())
                     const newEmployee = await inquirer.prompt([
                         {
                             type: 'input',
@@ -101,13 +103,13 @@ async function start() {
                         },
                         {
                             type: 'number',
-                            message: 'What is the employees role id?',
+                            message: 'What is the employees role? (Please enter id number only)',
                             name: 'role',
-                            validate: (answer) => answer !== ""
+                            validate: (answer) => answer !== ""  
                         },
                         {
                             type: 'number',
-                            message: 'Who is the employees manager?',
+                            message: 'Who is the employees manager? (Please enter id numbers only)',
                             name: 'manager'
                         }
                     ])

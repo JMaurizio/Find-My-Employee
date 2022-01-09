@@ -38,9 +38,9 @@ class choiceHandler {
         return this.allRoles()
     } 
 
-    async addEmployee(employee) {
-        const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
-        const[result] = await this.db.execute(sql, [employee])
+    async addEmployee(first_name, last_name, roles_id, manager_id) {
+        const sql = `INSERT INTO employee (first_name, last_name, roles_id, manager_id) VALUES (?, ?, ?, ?)`;
+        const[result] = await this.db.execute(sql, [first_name, last_name, roles_id, manager_id])
         return this.allEmployees()
     }
 
@@ -86,15 +86,15 @@ class choiceHandler {
         return rows
     }
 
-    async updateEmployee(employee) {
+    async updateEmployee(roles_id, id) {
         const sql = `UPDATE employee SET roles_id = ? WHERE id = ?`;
-        const[result] = await this.db.execute(sql, [employee])
+        const[result] = await this.db.execute(sql, [roles_id, id])
         return this.allEmployees()
     }
 
-    async updateManager(employee) {
+    async updateManager(manager_id, id) {
         const sql = `UPDATE employee SET manager_id =? WHERE id = ?`;
-        const [result] = await this.db.execute(sql, [employee])
+        const [result] = await this.db.execute(sql, [manager_id, id])
         return this.allEmployees()
     }
 }
